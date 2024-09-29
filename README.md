@@ -1,2 +1,2 @@
-# data_fun
+# mta open data project
 For messing around
