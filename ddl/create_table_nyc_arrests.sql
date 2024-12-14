@@ -43,3 +43,5 @@ CREATE TABLE arrests (
     longitude NUMERIC,
     lon_lat POINT
 );
+
+CREATE INDEX arrests_lon_lat ON arrests USING gist (lon_lat);

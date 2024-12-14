@@ -29,7 +29,7 @@ https://data.ny.gov/Transportation/MTA-Subway-Stations-and-Complexes/5f5g-n3cz/a
 brew install libpq
 ```
 
-## Create the tables
+## Create the tables and indices
 
 From within psql run the create table scripts under ./ddl
 
@@ -37,23 +37,23 @@ From within psql run the create table scripts under ./ddl
 
 Having staging tables help simplify the bulk COPY steps.
 
-Open ./scripts/stage_all.sql and change the paths from `/Users/bfemiano/dev/mta_open_data_project/data`
+Open ./ingest/stage_all.sql and change the paths from `/Users/bfemiano/dev/mta_open_data_project/data`
 to wherever you downloaded the CSV data. 
 
 You also will have to change the file names if the randomized suffix from the API is different (I just renamed and remove it.)
 
-Run ./scripts/stage_all.sql
+Run ./ingest/stage_all.sql
 
 This will load each of the staging tables from the raw CSV files.
 
 ## Load staging data to base tables.
 
-Run each of the four load scripts under ./scripts/
+Run each of the four load scripts under ./ingest/
 
 This will take the data from the staging tables and load into the final tables that 
 contain more useful datatypes for numeric, timestamp, and geospatial.
 
+## Analysis
 
-
-
+### Violent arrests by station
 

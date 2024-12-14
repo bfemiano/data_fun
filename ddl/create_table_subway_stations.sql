@@ -39,3 +39,6 @@ CREATE TABLE subway_stations (
     ada TEXT,
     ada_notes TEXT
 );
+
+
+CREATE INDEX stations_geo ON subway_stations USING gist (georeference);
