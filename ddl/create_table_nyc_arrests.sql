@@ -41,7 +41,7 @@ CREATE TABLE arrests (
     y_coord_cd TEXT,
     latitude NUMERIC,
     longitude NUMERIC,
-    lon_lat POINT
+    lon_lat GEOGRAPHY
 );
 
 CREATE INDEX arrests_lon_lat ON arrests USING gist (lon_lat);

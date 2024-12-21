@@ -50,22 +50,36 @@ This will load each of the staging tables from the raw CSV files.
 
 Run each of the four load scripts under `./ingest/`
 
-This will take the data from the staging tables and load into the final tables that 
+This will take the data from the staging tables and load into the final tables that
 contain more useful datatypes for numeric, timestamp, and geospatial.
 
 ## Analysis
 
 Run each of the queries under `./analysis`
 
-### TODO Violent arrests by station
+### Violent arrests by station
 
-Violent arrests per station within 0.25miles of the arrest. 
+Number of violent arrests near station. Definition of near a station is any arrest
+within 0.25miles (400m) of the station.
 
-TODO define what "violent" means based on arrest pd_desc. 
+The defintion of 'violent' I just eyed the distinct values of pd_desc and chose some at random.
+I probably left some out by accident.
 
-### TODO Origin/Dest pairs inverse delta
+### Coffee badging
 
-Origin/Dest pairs (BK origin and M in dest) where inverse pair (M in origin and BK in dest) within the same hour has a very small delta. This might indicate populate office coffe badging spots.
+Look at morning commuting hours and Origin/Dest pairs (BK origin and M in dest) join to their inverse pair (M in origin and BK in dest) within the same hour or next hour. 
+
+I.E:
+ 7 --> join to hour 7 and 8
+ 8 --> 8, 9
+ 9 --> 9, 10.
+ 10 --> 10,11.
+
+Look at the origin dest ridership for each hour compared to the inverse ridership in that same period.
+
+Similiar ridership numbers might indicate coffe badging hotspots.
+
+Note: This methodology is very flawed for a multitude of reasons, but fun to experiement with.
 
 ### Ridership by fare class per hour
 

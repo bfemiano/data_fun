@@ -35,6 +35,9 @@ CREATE TABLE subway_trips (
     destination_latitude NUMERIC,
     destination_longitude NUMERIC,
     estimated_average_ridership NUMERIC,
-    origin_point POINT,
-    destination_point POINT
+    origin_point GEOGRAPHY,
+    destination_point GEOGRAPHY
 );
+
+CREATE INDEX trips_origin ON subway_trips USING gist (origin_point);
+CREATE INDEX trips_dest ON subway_trips USING gist (destination_point);

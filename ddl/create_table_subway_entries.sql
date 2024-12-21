@@ -27,7 +27,7 @@ CREATE TABLE subway_entries (
     transfers NUMERIC,
     latitude NUMERIC,
     longitude NUMERIC,
-    georeference POINT
+    georeference GEOGRAPHY
 );
 
 CREATE INDEX subway_entries_geo ON subway_entries USING gist (georeference);

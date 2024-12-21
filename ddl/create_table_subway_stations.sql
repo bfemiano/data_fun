@@ -35,7 +35,7 @@ CREATE TABLE subway_stations (
     structure_type TEXT,
     latitude NUMERIC,
     longitude NUMERIC,
-    georeference POINT,
+    georeference GEOMETRY(POINT, 4326),
     ada TEXT,
     ada_notes TEXT
 );

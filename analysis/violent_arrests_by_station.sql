@@ -1,7 +1,51 @@
--- First filter arrests down to just violent. see notes
-
--- postgis join these to station based on distance of .25mile. 
--- This might cause arrests to expand but that's Ok. If an arrest is within 0.25miles of
---    multiple stations, count it towards all of them.
-
--- group by station, pd_desc and count. 
+EXPLAIN WITH violent_arrests AS (
+    SELECT lon_lat as arrest_geo 
+    FROM arrests
+    WHERE pd_desc IN
+    (
+    'AGGRAVATED HARASSMENT 1',
+    'AGGRAVATED HARASSMENT 2',
+    'AGGRAVATED SEXUAL ASBUSE',
+    'ARSON 1',
+    'ARSON 2,3,4',
+    'ASSAULT 2,1,PEACE OFFICER',
+    'ASSAULT 2,1,UNCLASSIFIED',
+    'ASSAULT 3',
+    'ASSAULT POLICE/PEACE OFFICER',
+    'HOMICIDE,NEGLIGENT,UNCLASSIFIE',
+    'HOMICIDE,NEGLIGENT,UNCLASSIFIED',
+    'HOMICIDE, NEGLIGENT, VEHICLE',
+    'HOMICIDE, NEGLIGENT, VEHICLE, INTOX DRIVER',
+    'KIDNAPPING 1',
+    'KIDNAPPING 2',
+    'MANSLAUGHTER,UNCLASSIFIED - NO',
+    'MANSLAUGHTER,UNCLASSIFIED - NON NEGLIGENT',
+    'MURDER,UNCLASSIFIED',
+    'RAPE 1',
+    'RAPE 2',
+    'RAPE 3',
+    'RIOT 1',
+    'RIOT 2/INCITING',
+    'ROBBERY,CAR JACKING',
+    'ROBBERY,CARJACKING OF MV OTHER THAN TRUCK',
+    'ROBBERY,GAS STATION',
+    'ROBBERY,OPEN AREA UNCLASSIFIED',
+    'ROBBERY,UNCLASSIFIED,OPEN AREA',
+    'ROBBERY,UNCLASSIFIED,OPEN AREAS',
+    'SEXUAL ABUSE',
+    'SEXUAL ABUSE 1',
+    'SEXUAL ABUSE 3,2',
+    'SEXUAL MISCONDUCT,DEVIATE',
+    'SEXUAL MISCONDUCT,INTERCOURSE',
+    'STRANGULATION 1ST',
+    'SUPP. ACT TERR 2ND',
+    'SUPP ACT TERRORISM 1',
+    'SUPP. ACT TERRORISM 2ND'
+    )
+)
+SELECT s.stop_name, COUNT(*) as violent_arrests_near_station
+FROM violent_arrests va
+JOIN subway_stations s
+ON ST_DWithin(va.arrest_geo::geography, s.georeference::geography,  400) -- 400m = 0.25miles
+GROUP BY s.stop_name
+ORDER BY violent_arrests_near_station DESC;
