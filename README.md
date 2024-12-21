@@ -1,7 +1,8 @@
 # mta open data project
-For messing around
 
-Follow the below sections to run the analysis.
+Playing around with the open MTA datasets.
+
+Follow the below sections to run the get the data, run ingest, and perform analysis.
 
 # Get the data:
 
