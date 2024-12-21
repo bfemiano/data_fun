@@ -99,4 +99,6 @@ What's the average distance between origin/dest pairs in meters for a given day 
 
 ## Metabase plot
 
-TODO
+Violent arrests in Manhattan year 2023
+
+![](./metabase_plot.png)
